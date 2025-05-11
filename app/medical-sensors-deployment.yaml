@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: medical-sensors
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: medical-sensors
+  template:
+    metadata:
+      labels:
+        app: medical-sensors
+    spec:
+      containers:
+        - name: medical-sensors
+          image: medical-sensors:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: medical-sensors
+spec:
+  selector:
+    app: medical-sensors
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80           # Ce que Istio verra
+      targetPort: 3000   # Port de ton serveur Node.js dans le conteneur

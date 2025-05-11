@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: medical-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: medical-backend
+  template:
+    metadata:
+      labels:
+        app: medical-backend
+    spec:
+      containers:
+        - name: medical-backend
+          image: medical-backend:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: medical-backend
+spec:
+  selector:
+    app: medical-backend
+  ports:
+    - name: http
+      port: 80
+      targetPort: 4000
