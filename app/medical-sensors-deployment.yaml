@@ -12,6 +12,7 @@ spec:
       labels:
         app: medical-sensors
     spec:
+      serviceAccountName: medical-sa   
       containers:
         - name: medical-sensors
           image: medical-sensors:1.0
@@ -29,5 +30,5 @@ spec:
   ports:
     - name: http
       protocol: TCP
-      port: 80           # Ce que Istio verra
-      targetPort: 3000   # Port de ton serveur Node.js dans le conteneur
+      port: 80
+      targetPort: 3000

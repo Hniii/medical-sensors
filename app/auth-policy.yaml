@@ -1,0 +1,13 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-frontend-to-backend
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: medical-backend
+  rules:
+  - from:
+    - source:
+        principals: ["cluster.local/ns/default/sa/medical-sa"]
